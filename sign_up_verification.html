@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1f1f1f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .header-logo {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .container {
+            background: linear-gradient(to bottom, #d9f0ff, #e0ffe8);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 32px; 
+            color: #fff;
+        }
+        .verification-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .verification-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .verify-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4e42b2;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .verify-btn:hover {
+            background-color: #563d7c;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-logo">
+        <a href="index.html">
+            <img src="images/SNVPlogo.png" alt="SNVP Logo" width="100"> 
+        </a>
+    </div>
+    <div class="container">
+        <div class="verification-text">
+            <p>Account Creation Confirmed</p>
+            <p>You will receive an email after your account has been verified. Please allow 24-48 hours to receive the confirmation.</p>
+            <p>Upon receiving the email, enter the verification code included in the email to verify your identity.</p>
+        </div>
+        <input type="text" class="verification-input" id="verificationCode" placeholder="Enter verification code">
+        <button class="verify-btn" onclick="verifyAccount()">Verify Account</button>
+    </div>
+
+    <script>
+        function verifyAccount() {
+            const verificationCode = document.getElementById('verificationCode').value;
+            if (verificationCode === '1234') {
+                alert('Account Successfully Verified!');
+                window.location.href = 'sign_in.html';
+            } else {
+                alert('Invalid Verification Code. Please Enter Code Again.');
+            }
+        }
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Details - SNVP</title>
+    <style>
+
+        body, html, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar .logo img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .nav ul {
+            width: 100%;
+        }
+
+        .nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a img {
+            margin-right: 10px;
+        }
+
+        .nav ul li a:hover {
+            background-color: #444;
+        }
+
+        .nav ul li:first-child a,
+        .nav ul li:nth-child(2) a,
+        .nav ul li:nth-child(3) a,
+        .nav ul li:nth-child(4) a {
+            font-size: 20px; 
+        }
+
+        .nav ul li:first-child a img,
+        .nav ul li:nth-child(2) a img,
+        .nav ul li:nth-child(3) a img,
+        .nav ul li:nth-child(4) a img {
+            width: 32px; 
+            height: 32px;
+        }
+
+        .nav ul li:nth-child(5) a,
+        .nav ul li:nth-child(6) a,
+        .nav ul li:nth-child(7) a,
+        .nav ul li:nth-child(8) a {
+            font-size: 16px; 
+        }
+
+        .nav ul li:nth-child(5) a img,
+        .nav ul li:nth-child(6) a img,
+        .nav ul li:nth-child(7) a img,
+        .nav ul li:nth-child(8) a img {
+            width: 24px; 
+            height: 24px;
+        }
+
+        .main-content {
+            margin-left: 280px; 
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 90px; 
+            width: calc(100% - 90px);
+        }
+
+        .account-section {
+            background-color: #e5e5f7; 
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .account-section h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .details-group {
+            margin-bottom: 15px;
+        }
+
+        .details-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .details-group span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="SNVP_homepage.html">
+                    <img src="images/SNVPlogo.png" alt="SNVP Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                    <ul>
+                        <li><a href="SNVP_homepage.html"><img src="images/Wallet.png" alt="Wallet Icon">Wallet</a></li>
+                        <li><a href="notice_verification.html"><img src="images/Notice Verification.png" alt="Notice Verification Icon">Notice Verification</a></li>
+                        <li><a href="notifications.html"><img src="images/Notifications.png" alt="Notifications Icon">Notifications</a></li>
+                        <li><a href="chat.html"><img src="images/Chat.png" alt="Chat Icon">Chat</a></li>
+                        <li><a href="account.html"><img src="images/Account.png" alt="Account Icon">Account</a></li>
+                        <li><a href="settings.html"><img src="images/Settings.png" alt="Settings Icon">Settings</a></li>
+                        <li><a href="logout.html"><img src="images/Logout.png" alt="Logout Icon">Logout</a></li>
+                        <li><a href="help.html"><img src="images/Help.png" alt="Help Icon">Help</a></li>
+                    </ul>
+                </nav>
+        </aside>
+        
+        <main class="main-content">
+            <div class="account-section">
+                <h2>Account Details</h2>
+                <div class="details-group">
+                    <label for="fullname">Full Name:</label>
+                    <span id="fullname">Loading...</span>
+                </div>
+                <div class="details-group">
+                    <label for="email">Email Address:</label>
+                    <span id="email">Loading...</span>
+                </div>
+                <div class="details-group">
+                    <label for="id-number">Identification Number:</label>
+                    <span id="id-number">Loading...</span>
+                </div>
+                <div class="details-group">
+                    <label for="id-type">Identification Type:</label>
+                    <span id="id-type">Loading...</span>
+                </div>
+                <div class="details-group">
+                    <label for="address">Residential/Office Address:</label>
+                    <span id="address">Loading...</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            if (user) {
+                document.getElementById('fullname').textContent = user.fullname;
+                document.getElementById('email').textContent = user.email;
+                document.getElementById('id-number').textContent = user.idNumber;
+                document.getElementById('id-type').textContent = user.idType;
+                document.getElementById('address').textContent = user.address || 'N/A';
+            } else {
+                alert('No user information found. Please sign up.');
+                window.location.href = 'sign_up_input_details.html';
+            }
+        });
+
+    </script>
+</body>
+</html>

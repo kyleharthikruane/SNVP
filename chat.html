@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats - SNVP</title>
+    <style>
+
+        body, html, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+    
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: black; 
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar .logo img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .nav ul {
+            width: 100%;
+        }
+
+        .nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a img {
+            margin-right: 10px;
+        }
+
+        .nav ul li a:hover {
+            background-color: #444;
+        }
+
+        .nav ul li:first-child a,
+        .nav ul li:nth-child(2) a,
+        .nav ul li:nth-child(3) a,
+        .nav ul li:nth-child(4) a {
+            font-size: 20px; 
+        }
+
+        .nav ul li:first-child a img,
+        .nav ul li:nth-child(2) a img,
+        .nav ul li:nth-child(3) a img,
+        .nav ul li:nth-child(4) a img {
+            width: 32px; 
+            height: 32px;
+        }
+
+        .nav ul li:nth-child(5) a,
+        .nav ul li:nth-child(6) a,
+        .nav ul li:nth-child(7) a,
+        .nav ul li:nth-child(8) a {
+            font-size: 16px; 
+        }
+
+        .nav ul li:nth-child(5) a img,
+        .nav ul li:nth-child(6) a img,
+        .nav ul li:nth-child(7) a img,
+        .nav ul li:nth-child(8) a img {
+            width: 24px; 
+            height: 24px;
+        }
+
+        .main-content {
+            margin-left: 280px; 
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 90px; 
+            width: calc(100% - 90px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            outline: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chats-section {
+            display: flex;
+            flex-direction: row;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: calc(100vh - 40px); 
+            width: 100%;
+        }
+
+        .chats-section .chats-list,
+        .chats-section .chat-detail {
+            flex: 1; 
+            margin: 0 10px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .chats-list {
+            background-color: #5f50d8; 
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            max-width: 300px;
+        }
+
+        .chats-list h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .chat-item {
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .chat-item.active {
+            background-color: #ccc;
+        }
+
+        .chat-item .chat-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .chat-item .chat-date {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .chat-detail {
+            background-color: #e5e5f7; 
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .chat-detail .message {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .chat-detail .message .avatar {
+            margin-right: 10px;
+        }
+
+        .chat-detail .message .text {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 80%;
+        }
+
+        .chat-detail .message.investor {
+            flex-direction: row-reverse;
+        }
+
+        .chat-detail .message.investor .text {
+            background-color: #ddd;
+        }
+
+        .chat-detail .message.fund-manager {
+            justify-content: flex-start;
+        }
+
+        .chat-detail .message.fund-manager .text {
+            background-color: #d1e7ff;
+        }
+
+        .input-message {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .input-message input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .input-message button {
+            padding: 10px;
+            margin-left: 10px;
+            border-radius: 50%;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="SNVP_homepage.html">
+                    <img src="images/SNVPlogo.png" alt="SNVP Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                    <ul>
+                        <li><a href="SNVP_homepage.html"><img src="images/Wallet.png" alt="Wallet Icon">Wallet</a></li>
+                        <li><a href="notice_verification.html"><img src="images/Notice Verification.png" alt="Notice Verification Icon">Notice Verification</a></li>
+                        <li><a href="notifications.html"><img src="images/Notifications.png" alt="Notifications Icon">Notifications</a></li>
+                        <li><a href="chat.html"><img src="images/Chat.png" alt="Chat Icon">Chat</a></li>
+                        <li><a href="account.html"><img src="images/Account.png" alt="Account Icon">Account</a></li>
+                        <li><a href="settings.html"><img src="images/Settings.png" alt="Settings Icon">Settings</a></li>
+                        <li><a href="logout.html"><img src="images/Logout.png" alt="Logout Icon">Logout</a></li>
+                        <li><a href="help.html"><img src="images/Help.png" alt="Help Icon">Help</a></li>
+                    </ul>
+                </nav>
+        </aside>
+        
+        <main class="main-content">
+            <section class="chats-section">
+                <div class="chats-list">
+                    <h3>Chats</h3>
+                    <div class="chat-item active" onclick="selectChat(1)">
+                        <span class="chat-title">Fund Manager 1</span>
+                        <span class="chat-date">now</span>
+                    </div>
+                    <div class="chat-item" onclick="selectChat(2)">
+                        <span class="chat-title">Fund Manager 2</span>
+                        <span class="chat-date">now</span>
+                    </div>
+                </div>
+                <div class="chat-detail" id="chatDetail">
+                    <div class="message investor">
+                        <div class="avatar"> alt="Investor" width="40"></div>
+                        <div class="text"><strong>You</strong><br>Hi, I wanted to ask ......</div>
+                    </div>
+                    <div class="message fund-manager">
+                        <div class="avatar"> alt="Fund Manager" width="40"></div>
+                        <div class="text"><strong>FM 1</strong><br>Thank you for the message, I'm more than happy to assist you. To fix this issue.......</div>
+                    </div>
+                    <div class="input-message">
+                        <input type="text" id="messageInput" placeholder="Type a message...">
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        var chats = {
+            1: [
+                { sender: 'investor', text: 'Hi, I wanted to ask ......' },
+                { sender: 'fund-manager', text: 'Thank you for the message, I\'m more than happy to assist you. To fix this issue.......' }
+            ],
+            2: [
+                { sender: 'investor', text: 'Hello Fund Manager 2' },
+                { sender: 'fund-manager', text: 'Hello, how can I assist you?' }
+            ]
+        };
+
+        var currentChat = 1;
+
+        function selectChat(managerId) {
+            currentChat = managerId;
+            updateChat();
+        }
+
+        function sendMessage() {
+            var messageInput = document.getElementById('messageInput');
+            var messageText = messageInput.value;
+
+            if (messageText.trim() !== '') {
+                chats[currentChat].push({ sender: 'investor', text: messageText });
+                messageInput.value = '';
+                updateChat();
+            }
+        }
+
+        function updateChat() {
+            var chatDetail = document.getElementById('chatDetail');
+            chatDetail.innerHTML = chats[currentChat].map(function(message) {
+                var senderClass = message.sender === 'investor' ? 'investor' : 'fund-manager';
+                var senderName = message.sender === 'investor' ? 'Investor' : 'FM';
+                var avatar = message.sender === 'investor' ? 'images/investor_icon.png' : 'images/fund_manager_icon.png';
+                return `
+                    <div class="message ${senderClass}">
+                        <div class="avatar"><img src="${avatar}" alt="${senderName}" width="40"></div>
+                        <div class="text"><strong>${senderName}</strong><br>${message.text}</div>
+                    </div>
+                `;
+            }).join('');
+            chatDetail.innerHTML += `
+                <div class="input-message">
+                    <input type="text" id="messageInput" placeholder="Type a message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            `;
+        }
+
+        updateChat();
+    </script>
+</body>
+</html>

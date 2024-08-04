@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #1f1f1f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .header-logo {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .container {
+            background: linear-gradient(to bottom, #d9f0ff, #e0ffe8);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .sign-in-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4e42b2;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .sign-in-btn:hover {
+            background-color: #563d7c;
+        }
+        .footer-text {
+            color: #999;
+            margin-top: 20px;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-logo">
+        <img src="images/SNVPlogo.png" alt="SNVP Logo" width="100"> <!-- SNVP Logo -->
+    </div>
+    <div class="container">
+        <form id="signin-form" onsubmit="handleSignIn(event)">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="sign-in-btn">Sign In</button>
+        </form>
+        <p class="footer-text">Don't have an account? <a href="sign_up.html" id="createAccountLink">Create Account</a></p>
+    </div>
+
+    <script>
+        function handleSignIn(event) {
+            event.preventDefault();
+            // Get form values
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Retrieve stored user details from localStorage
+            const user = JSON.parse(localStorage.getItem('user'));
+
+            // Validate credentials
+            if (user && user.email === email && user.password === password) {
+                alert('Sign-in successful! Redirecting to main page...');
+                window.location.href = 'SNVP_homepage.html';
+            } else {
+                alert('Invalid email or password!');
+            }
+        }
+    </script>
+</body>
+</html>
+

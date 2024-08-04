@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - SNVP</title>
+    <style>
+
+        body, html, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: black; 
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar .logo img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .nav ul {
+            width: 100%;
+        }
+
+        .nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a img {
+            margin-right: 10px;
+        }
+
+        .nav ul li a:hover {
+            background-color: #444;
+        }
+
+        .nav ul li:first-child a,
+        .nav ul li:nth-child(2) a,
+        .nav ul li:nth-child(3) a,
+        .nav ul li:nth-child(4) a {
+            font-size: 20px; 
+        }
+
+        .nav ul li:first-child a img,
+        .nav ul li:nth-child(2) a img,
+        .nav ul li:nth-child(3) a img,
+        .nav ul li:nth-child(4) a img {
+            width: 32px; 
+            height: 32px;
+        }
+
+        .nav ul li:nth-child(5) a,
+        .nav ul li:nth-child(6) a,
+        .nav ul li:nth-child(7) a,
+        .nav ul li:nth-child(8) a {
+            font-size: 16px; 
+        }
+
+        .nav ul li:nth-child(5) a img,
+        .nav ul li:nth-child(6) a img,
+        .nav ul li:nth-child(7) a img,
+        .nav ul li:nth-child(8) a img {
+            width: 24px; 
+            height: 24px;
+        }
+
+        .main-content {
+            margin-left: 280px; 
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 90px; 
+            width: calc(100% - 90px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            outline: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .settings-section {
+            background-color: #e5e5f7; 
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .settings-section h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .form-group input[type="checkbox"] {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
+
+        .form-group select,
+        .form-group input[type="checkbox"] + label {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .save-settings-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #5f50d8;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .save-settings-btn:hover {
+            background-color: #4e42b2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="SNVP_homepage.html">
+                    <img src="images/SNVPlogo.png" alt="SNVP Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="SNVP_homepage.html"><img src="images/Wallet.png" alt="Wallet Icon">Wallet</a></li>
+                    <li><a href="notice_verification.html"><img src="images/Notice Verification.png" alt="Notice Verification Icon">Notice Verification</a></li>
+                    <li><a href="notifications.html"><img src="images/Notifications.png" alt="Notifications Icon">Notifications</a></li>
+                    <li><a href="chat.html"><img src="images/Chat.png" alt="Chat Icon">Chat</a></li>
+                    <li><a href="account.html"><img src="images/Account.png" alt="Account Icon">Account</a></li>
+                    <li><a href="settings.html"><img src="images/Settings.png" alt="Settings Icon">Settings</a></li>
+                    <li><a href="logout.html"><img src="images/Logout.png" alt="Logout Icon">Logout</a></li>
+                    <li><a href="help.html"><img src="images/Help.png" alt="Help Icon">Help</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section class="settings-section">
+                <h2>Settings</h2>
+                <form id="settings-form" onsubmit="saveSettings(event)">
+                    <div class="form-group">
+                        <label for="notifications">Notification Settings:</label>
+                        <div>
+                            <input type="checkbox" id="notifications" name="notifications">
+                            <label for="notifications">Enable Notifications</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Preferred Language:</label>
+                        <select id="language" name="language">
+                            <option value="English">English</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="French">French</option>
+                            <option value="German">German</option>
+                            <option value="Italian">Italian</option>
+                            <option value="Portuguese">Portuguese</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Japanese">Japanese</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="timezone">Time Zone:</label>
+                        <select id="timezone" name="timezone">
+                            <option value="UTC-5">UTC-5</option>
+                            <option value="UTC-6">UTC-6</option>
+                            <option value="UTC-7">UTC-7</option>
+                            <option value="UTC-8">UTC-8</option>
+                            <option value="UTC-9">UTC-9</option>
+                            <option value="UTC-10">UTC-10</option>
+                            <option value="UTC-11">UTC-11</option>
+                            <option value="UTC-12">UTC-12</option>
+                            <option value="UTC+1">UTC+1</option>
+                            <option value="UTC+2">UTC+2</option>
+                            <option value="UTC+3">UTC+3</option>
+                            <option value="UTC+4">UTC+4</option>
+                            <option value="UTC+5">UTC+5</option>
+                            <option value="UTC+6">UTC+6</option>
+                            <option value="UTC+7">UTC+7</option>
+                            <option value="UTC+8">UTC+8</option>
+                            <option value="UTC+9">UTC+9</option>
+                            <option value="UTC+10">UTC+10</option>
+                            <option value="UTC+11">UTC+11</option>
+                            <option value="UTC+12">UTC+12</option>
+                            <option value="UTC+13">UTC+13</option>
+                            <option value="UTC+14">UTC+14</option>
+                            
+                        </select>
+                    </div>
+                    <button type="submit" class="save-settings-btn">Save Settings</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function saveSettings(event) {
+            event.preventDefault();
+            // Logic to save the settings
+            alert('Settings saved successfully!');
+        }
+    </script>
+</body>
+</html>

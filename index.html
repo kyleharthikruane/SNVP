@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNVP - Home</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        position: relative;
+        color: #fff;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('images/index.png') no-repeat center center fixed;
+        background-size: cover;
+        z-index: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);  
+        z-index: 2;
+    }
+
+    .header, .jumbotron {
+        position: relative;
+        z-index: 3;
+    }
+
+    .header {
+        background-color: #1f1f1f;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .header .navbar-brand img {
+        width: 50px;
+    }
+
+    .header .nav-buttons {
+        display: flex;
+    }
+
+    .header .nav-buttons a {
+        color: #fff;
+        background-color: #4e42b2;
+        padding: 10px 20px;
+        margin: 0 5px;
+        border-radius: 20px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .header .nav-buttons a:hover {
+        background-color: #3b3190;
+    }
+
+    .container {
+        margin-top: 100px;
+    }
+
+    .jumbotron {
+        background: none;
+        padding: 0;
+        text-align: center;
+    }
+
+    .jumbotron h1, .jumbotron p, .jumbotron a {
+        color: #fff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-custom {
+        background-color: #4e42b2;
+        border-color: #4e42b2;
+        border-radius: 30px;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .btn-custom:hover {
+        background-color: #3b3190;
+        border-color: #3b3190;
+    }
+
+    a {
+        color: #fff;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+<div class="background"></div>
+<div class="overlay"></div>
+
+<div class="header">
+    <a class="navbar-brand" href="index.html"><img src="images/SNVPlogo.png" alt="SNVP Logo"></a>
+    <div class="nav-buttons">
+        <a href="sign_up.html">Create Account</a>
+        <a href="sign_in.html">Sign In</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Organize and Manage investments in one platform</h1>
+        <p class="lead">SNVP offers an all-encompassing platform for investors to check the authenticity of their investment funds notifications and streamlines payment and communication processes in investment funds.</p>
+        <a class="btn btn-custom btn-lg" href="sign_up.html" role="button">Get Started</a>
+        <a class="btn btn-custom btn-lg ml-2" href="features.html" role="button">Our Features</a>
+        <p class="mt-4"><a href="#">Start for free - No hidden fees.</a></p>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

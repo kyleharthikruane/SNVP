@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Verification - SNVP</title>
+    <style>
+     
+        body, html, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+      
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #000; 
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar .logo img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .nav ul {
+            width: 100%;
+        }
+
+        .nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a img {
+            margin-right: 10px;
+        }
+
+        .nav ul li a:hover {
+            background-color: #444;
+        }
+
+        .nav ul li:first-child a,
+        .nav ul li:nth-child(2) a,
+        .nav ul li:nth-child(3) a,
+        .nav ul li:nth-child(4) a {
+            font-size: 20px; 
+        }
+
+        .nav ul li:first-child a img,
+        .nav ul li:nth-child(2) a img,
+        .nav ul li:nth-child(3) a img,
+        .nav ul li:nth-child(4) a img {
+            width: 32px; 
+            height: 32px;
+        }
+
+        .nav ul li:nth-child(5) a,
+        .nav ul li:nth-child(6) a,
+        .nav ul li:nth-child(7) a,
+        .nav ul li:nth-child(8) a {
+            font-size: 16px; 
+        }
+
+        .nav ul li:nth-child(5) a img,
+        .nav ul li:nth-child(6) a img,
+        .nav ul li:nth-child(7) a img,
+        .nav ul li:nth-child(8) a img {
+            width: 24px; 
+            height: 24px;
+        }
+
+        .main-content {
+            margin-left: 280px; 
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 90px; 
+            width: calc(100% - 90px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            outline: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .notice-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            background-color: #f1f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: calc(100vh - 40px); 
+        }
+
+        .notice-section .notice-info,
+        .notice-section .verification-form {
+            flex: 1; 
+            margin: 0 10px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .verification-form label {
+            margin-bottom: 5px;
+        }
+
+        .verification-form input, .verification-form select {
+            width: calc(100% - 20px); 
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .verification-form button {
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .verification-form button:hover {
+            background-color: #218838;
+        }
+
+        .result-message {
+            font-size: 1.2em;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .authentic {
+            color: green;
+        }
+        .unauthentic {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="SNVP_homepage.html">
+                    <img src="images/SNVPlogo.png" alt="SNVP Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="SNVP_homepage.html"><img src="images/Wallet.png" alt="Wallet Icon">Wallet</a></li>
+                    <li><a href="notice_verification.html"><img src="images/Notice Verification.png" alt="Notice Verification Icon">Notice Verification</a></li>
+                    <li><a href="#"><img src="images/Notifications.png" alt="Notifications Icon">Notifications</a></li>
+                    <li><a href="#"><img src="images/Chat.png" alt="Chat Icon">Chat</a></li>
+                    <li><a href="#"><img src="images/Account.png" alt="Account Icon">Account</a></li>
+                    <li><a href="#"><img src="images/Settings.png" alt="Settings Icon">Settings</a></li>
+                    <li><a href="#"><img src="images/Logout.png" alt="Logout Icon">Logout</a></li>
+                    <li><a href="#"><img src="images/Help.png" alt="Help Icon">Help</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <section class="notice-section">
+                <div class="notice-info">
+                    <h2>Notice Verification</h2>
+
+                    <p>
+                        SNVP recognizes that reputation and trust in the industry are of the utmost importance.
+                    </p>
+
+                    <p>
+                        The Document Verification Service provides one way for you to verify the authenticity of payment notices sent by your respective fund manager.
+                    </p>
+
+                    <p>
+                        To verify payment notices, simply input the Notice ID and Provided Bank No. that is included in every payment notice. Our systems will check and validate the Notice ID against the blockchain records.
+                    </p>
+                </div>
+                <div class="verification-form">
+                    <label for="fund-select">Select your Fund:</label>
+                    <select id="fund-select" name="fund-select">
+                        <option value="">Select Fund</option>
+                        <option value="fund1">Fund 1</option>
+                        <option value="fund2">Fund 2</option>
+                    </select>
+                    <label for="notice-id">Enter Notice ID:</label>
+                    <input type="text" id="notice-id" name="notice-id" required>
+                    <label for="bank-no">Enter Provided Bank No.:</label>
+                    <input type="text" id="bank-no" name="bank-no" required>
+                    <button type="button" onclick="verifyNotice()">Verify Payment Notice</button>
+
+                    <div id="result" class="result-message"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const fundData = {
+            "fund1": { noticeId: "123456", bankNo: "654321" },
+            "fund2": { noticeId: "234567", bankNo: "765432" }
+        };
+
+        function verifyNotice() {
+            const selectedFund = document.getElementById("fund-select").value;
+            const inputNoticeId = document.getElementById("notice-id").value.trim();
+            const inputBankNo = document.getElementById("bank-no").value.trim();
+            const resultDiv = document.getElementById("result");
+
+            if (selectedFund && inputNoticeId && inputBankNo) {
+                const correctData = fundData[selectedFund];
+                if (correctData.noticeId === inputNoticeId && correctData.bankNo === inputBankNo) {
+                    resultDiv.className = "result-message authentic";
+                    resultDiv.innerHTML = `
+                        <strong>Payment Notice is Authentic</strong><br>
+                        Payment Notice #${inputNoticeId} was issued by Fund Manager, on 03/06/2024 at 09:00 am.<br>
+                        Proceed to make payment by 04/06/2024, 11:59 pm.
+                    `;
+                } else {
+                    resultDiv.className = "result-message unauthentic";
+                    resultDiv.innerHTML = `
+                        <strong>Payment Notice is Unauthentic</strong><br>
+                        Payment Notice #${inputNoticeId} was issued by an unauthorized entity on 20/05/2024 at 10:00 am.<br>
+                        Do NOT make payment to the included bank account. The fund manager has been notified.
+                    `;
+                }
+            } else {
+                resultDiv.className = "result-message unauthentic";
+                resultDiv.innerHTML = `Please fill in all fields correctly.`;
+            }
+        }
+    </script>
+</body>
+</html>
+

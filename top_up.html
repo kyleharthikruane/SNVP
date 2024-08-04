@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up Balance - SNVP</title>
+    <style>
+        
+        body, html, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #000; 
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar .logo img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .nav ul {
+            width: 100%;
+        }
+
+        .nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a img {
+            margin-right: 10px;
+        }
+
+        .nav ul li a:hover {
+            background-color: #444;
+        }
+
+        .nav ul li:first-child a,
+        .nav ul li:nth-child(2) a,
+        .nav ul li:nth-child(3) a,
+        .nav ul li:nth-child(4) a {
+            font-size: 20px; 
+        }
+
+        .nav ul li:first-child a img,
+        .nav ul li:nth-child(2) a img,
+        .nav ul li:nth-child(3) a img,
+        .nav ul li:nth-child(4) a img {
+            width: 32px; 
+            height: 32px;
+        }
+
+        .nav ul li:nth-child(5) a,
+        .nav ul li:nth-child(6) a,
+        .nav ul li:nth-child(7) a,
+        .nav ul li:nth-child(8) a {
+            font-size: 16px; 
+        }
+
+        .nav ul li:nth-child(5) a img,
+        .nav ul li:nth-child(6) a img,
+        .nav ul li:nth-child(7) a img,
+        .nav ul li:nth-child(8) a img {
+            width: 24px; 
+            height: 24px;
+        }
+
+        .main-content {
+            margin-left: 280px; 
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 90px; 
+            width: calc(100% - 90px);
+        }
+
+        .content-container {
+            max-width: 500px;
+            width: 100%; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-row .form-group:last-child {
+            margin-right: 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4e42b2; 
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3b3190; 
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="SNVP_homepage.html">
+                    <img src="images/SNVPlogo.png" alt="SNVP Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="SNVP_homepage.html"><img src="images/Wallet.png" alt="Wallet Icon">Wallet</a></li>
+                    <li><a href="notice_verification.html"><img src="images/Notice Verification.png" alt="Notice Verification Icon">Notice Verification</a></li>
+                    <li><a href="notifications.html"><img src="images/Notifications.png" alt="Notifications Icon">Notifications</a></li>
+                    <li><a href="chat.html"><img src="images/Chat.png" alt="Chat Icon">Chat</a></li>
+                    <li><a href="account.html"><img src="images/Account.png" alt="Account Icon">Account</a></li>
+                    <li><a href="settings.html"><img src="images/Settings.png" alt="Settings Icon">Settings</a></li>
+                    <li><a href="logout.html"><img src="images/Logout.png" alt="Logout Icon">Logout</a></li>
+                    <li><a href="help.html"><img src="images/Help.png" alt="Help Icon">Help</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-container">
+                <h2 style="font-weight: bold; text-align: left;">Top-Up Balance</h2>
+                <form id="top-up-form">
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" name="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number">Credit Card Number</label>
+                        <input type="text" id="card-number" name="card-number" required maxlength="16" pattern="\d{16}" title="Please enter a valid 16-digit credit card number">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" name="cvv" required maxlength="3" pattern="\d{3}" title="Please enter a valid 3-digit CVV">
+                        </div>
+                        <div class="form-group">
+                            <label for="expiry-date">Expiry Date</label>
+                            <input type="text" id="expiry-date" name="expiry-date" required pattern="(0[1-9]|1[0-2])\/\d{2}" title="Please enter a valid expiry date in MM/YY format">
+                        </div>
+                    </div>
+                    <button type="submit">Top Up</button>
+                </form>
+                <p id="success-message" style="display:none;">Top up successful! New balance: <span id="new-balance"></span></p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('top-up-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            handleTopUp();
+        });
+
+        function handleTopUp() {
+            const otp = prompt("Enter One Time Password sent to your Email:");
+            if (!otp || otp.length !== 6 || !/^\d{6}$/.test(otp)) {
+                alert("Invalid OTP. Please enter a valid 6-digit OTP.");
+                return;
+            }
+
+            const amount = parseFloat(document.getElementById('amount').value);
+            const balance = parseFloat(localStorage.getItem('balance') || '0');
+            const newBalance = balance + amount;
+            localStorage.setItem('balance', newBalance.toFixed(2));
+
+            document.getElementById('new-balance').innerText = `$${newBalance.toFixed(2)}`;
+            document.getElementById('success-message').style.display = 'block';
+
+            // Update transactions in local storage
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            transactions.push({ date: new Date().toISOString().split('T')[0], description: 'Top Up', amount: amount });
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+
+            setTimeout(() => {
+                window.location.href = 'SNVP_homepage.html';
+            }, 2000);
+        }
+
+        // Prevent non-numeric input for credit card and CVV fields
+        document.getElementById('card-number').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '').substring(0, 16);
+        });
+
+        document.getElementById('cvv').addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '').substring(0, 3);
+        });
+
+        // Validate expiry date format
+        document.getElementById('expiry-date').addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9\/]/g, '').replace(/(\d{2})(\d{2})/, '$1/$2').substring(0, 5);
+        });
+    </script>
+</body>
+</html>

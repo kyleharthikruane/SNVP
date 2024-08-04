@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - SNVP</title>
+    <style>
+
+        body, html, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #000; 
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar .logo img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .nav ul {
+            width: 100%;
+        }
+
+        .nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a img {
+            margin-right: 10px;
+        }
+
+        .nav ul li a:hover {
+            background-color: #444;
+        }
+
+        .nav ul li:first-child a,
+        .nav ul li:nth-child(2) a,
+        .nav ul li:nth-child(3) a,
+        .nav ul li:nth-child(4) a {
+            font-size: 20px; 
+        }
+
+        .nav ul li:first-child a img,
+        .nav ul li:nth-child(2) a img,
+        .nav ul li:nth-child(3) a img,
+        .nav ul li:nth-child(4) a img {
+            width: 32px; 
+            height: 32px;
+        }
+
+        .nav ul li:nth-child(5) a,
+        .nav ul li:nth-child(6) a,
+        .nav ul li:nth-child(7) a,
+        .nav ul li:nth-child(8) a {
+            font-size: 16px; 
+        }
+
+        .nav ul li:nth-child(5) a img,
+        .nav ul li:nth-child(6) a img,
+        .nav ul li:nth-child(7) a img,
+        .nav ul li:nth-child(8) a img {
+            width: 24px; 
+            height: 24px;
+        }
+
+        .main-content {
+            margin-left: 280px; 
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 90px; 
+            width: calc(100% - 90px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            outline: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .notifications-section {
+            display: flex;
+            flex-direction: row;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: calc(100vh - 40px); 
+            width: 100%;
+        }
+
+        .notifications-section .notifications-list,
+        .notifications-section .notification-detail {
+            flex: 1; 
+            margin: 0 10px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .notifications-list {
+            background-color: #5f50d8; 
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            max-width: 300px;
+        }
+
+        .notifications-list h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .notification-item {
+            background-color: #fff;
+            color: #333;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .notification-item.active {
+            background-color: #ccc;
+        }
+
+        .notification-item .notification-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .notification-item .notification-date {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .notification-detail {
+            background-color: #e5e5f7;  
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .notification-detail h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .notification-detail p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        
+        .notification-item.red {
+            background-color: red;
+            color: #fff;
+        }
+    </style>
+    <script>
+        function showNotificationDetail(title, content) {
+            document.getElementById('notification-title').textContent = title;
+            document.getElementById('notification-content').innerHTML = content;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add event listeners to notification items
+            document.getElementById('notification1').addEventListener('click', function () {
+                showNotificationDetail('Payment Reminder', `
+                    <p>Please be reminded to make payment tomorrow (04/06).</p>
+                    <p>Bank Account: UEN2340139J</p>
+                    <p>Notice ID: 12345678</p>
+                `);
+            });
+
+            document.getElementById('notification2').addEventListener('click', function () {
+                showNotificationDetail('Fraudulent Notice', `
+                    <p>We have identified a fraudulent payment notice released on 20/5, please ignore the previous notice and do not transfer to the bank account mentioned in the payment notice.</p>
+                `);
+            });
+
+            document.getElementById('notification3').addEventListener('click', function () {
+                showNotificationDetail('Payment Notice', `
+                    <p>Please be reminded to make payment today (20/05).</p>
+                    <p>Bank Account: UEN7482947H</p>
+                    <p>Notice ID: 13462783</p>
+                `);
+            });
+
+            document.getElementById('notification4').addEventListener('click', function () {
+                showNotificationDetail('Payment Notice', `
+                    <p>Please be reminded to make payment today (04/05).</p>
+                    <p>Bank Account: UEN2340139J</p>
+                    <p>Notice ID: 12345678</p>
+                `);
+            });
+
+            document.getElementById('notification5').addEventListener('click', function () {
+                showNotificationDetail('Payment Reminder', `
+                    <p>Please be reminded to make payment tomorrow (04/05).</p>
+                    <p>Bank Account: UEN2340139J</p>
+                    <p>Notice ID: 12345678</p>
+                `);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="SNVP_homepage.html">
+                    <img src="images/SNVPlogo.png" alt="SNVP Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="SNVP_homepage.html"><img src="images/Wallet.png" alt="Wallet Icon">Wallet</a></li>
+                    <li><a href="notice_verification.html"><img src="images/Notice Verification.png" alt="Notice Verification Icon">Notice Verification</a></li>
+                    <li><a href="notifications.html"><img src="images/Notifications.png" alt="Notifications Icon">Notifications</a></li>
+                    <li><a href="chat.html"><img src="images/Chat.png" alt="Chat Icon">Chat</a></li>
+                    <li><a href="account.html"><img src="images/Account.png" alt="Account Icon">Account</a></li>
+                    <li><a href="settings.html"><img src="images/Settings.png" alt="Settings Icon">Settings</a></li>
+                    <li><a href="logout.html"><img src="images/Logout.png" alt="Logout Icon">Logout</a></li>
+                    <li><a href="help.html"><img src="images/Help.png" alt="Help Icon">Help</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <div class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search here...">
+                </div>
+            </div>
+
+            <section class="notifications-section">
+                <div class="notifications-list">
+                    <h3>Notifications</h3>
+                    <div id="notification1" class="notification-item">
+                        <span class="notification-title">Payment Reminder</span>
+                        <span class="notification-date">now</span>
+                    </div>
+                    <div id="notification2" class="notification-item">
+                        <span class="notification-title">Fraudulent Notice</span>
+                        <span class="notification-date">20/5</span>
+                    </div>
+                    <div id="notification3" class="notification-item red">
+                        <span class="notification-title">Payment Notice</span>
+                        <span class="notification-date">20/5</span>
+                    </div>
+                    <div id="notification4" class="notification-item">
+                        <span class="notification-title">Payment Notice</span>
+                        <span class="notification-date">04/5</span>
+                    </div>
+                    <div id="notification5" class="notification-item">
+                        <span class="notification-title">Payment Reminder</span>
+                        <span class="notification-date">03/5</span>
+                    </div>
+                </div>
+                <div class="notification-detail">
+                    <h2 id="notification-title">Payment Reminder</h2>
+                    <div id="notification-content">
+                        <p>Please be reminded to make payment tomorrow (04/06).</p>
+                        <p>Bank Account: UEN2340139J</p>
+                        <p>Notice ID: 12345678</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

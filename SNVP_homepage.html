@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - SNVP</title>
+    <style>
+
+        body, html, div, span, applet, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, big, cite, code,
+        del, dfn, em, img, ins, kbd, q, s, samp,
+        small, strike, strong, sub, sup, tt, var,
+        b, u, i, center,
+        dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, canvas, details, embed, 
+        figure, figcaption, footer, header, hgroup, 
+        menu, nav, output, ruby, section, summary,
+        time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+        article, aside, details, figcaption, figure, 
+        footer, header, hgroup, menu, nav, section {
+            display: block;
+        }
+        body {
+            line-height: 1;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after,
+        q:before, q:after {
+            content: '';
+            content: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #000; 
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar .logo img {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+
+        .nav ul {
+            width: 100%;
+        }
+
+        .nav ul li {
+            margin: 15px 0;
+        }
+
+        .nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav ul li a img {
+            margin-right: 10px;
+        }
+
+        .nav ul li a:hover {
+            background-color: #444;
+        }
+
+        .nav ul li:first-child a,
+        .nav ul li:nth-child(2) a,
+        .nav ul li:nth-child(3) a,
+        .nav ul li:nth-child(4) a {
+            font-size: 20px; 
+        }
+
+        .nav ul li:first-child a img,
+        .nav ul li:nth-child(2) a img,
+        .nav ul li:nth-child(3) a img,
+        .nav ul li:nth-child(4) a img {
+            width: 32px; 
+            height: 32px;
+        }
+
+        .nav ul li:nth-child(5) a,
+        .nav ul li:nth-child(6) a,
+        .nav ul li:nth-child(7) a,
+        .nav ul li:nth-child(8) a {
+            font-size: 16px; 
+        }
+
+        .nav ul li:nth-child(5) a img,
+        .nav ul li:nth-child(6) a img,
+        .nav ul li:nth-child(7) a img,
+        .nav ul li:nth-child(8) a img {
+            width: 24px; 
+            height: 24px;
+        }
+
+        .main-content {
+            margin-left: 280px; 
+            width: calc(100% - 280px);
+            padding: 20px;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 90px; 
+            width: calc(100% - 90px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            outline: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-info span {
+            margin-right: 10px;
+        }
+
+        .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .wallet-section {
+            background-color: #5f50d8;  
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .wallet-section .balance {
+            display: flex;
+            align-items: center;
+        }
+
+        .wallet-section .balance img {
+            width: 80px; 
+            height: 80px;
+            margin-right: 20px;
+        }
+
+        .wallet-section .balance div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .wallet-section .balance h2 {
+            font-size: 24px; 
+            color: #ccc;
+        }
+
+        .wallet-section .balance p {
+            font-size: 20px; 
+            color: #ddd;
+        }
+
+        .wallet-section .balance h3 {
+            font-size: 40px; 
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .wallet-section .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px; 
+        }
+
+        .wallet-section button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px; 
+        }
+
+        .wallet-section .top-up a, .wallet-section .transfer a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .wallet-section .top-up {
+            background-color: #4CAF50;
+        }
+
+        .wallet-section .transfer {
+            background-color: #2196F3;
+        }
+
+        .transaction-history {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-history h2 {
+            margin-bottom: 20px;
+        }
+
+        .transaction {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .transaction h3 {
+            margin-bottom: 5px;
+        }
+
+        .transaction p {
+            color: #555;
+        }
+
+        .toggle-sidebar-btn {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .show-all-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .show-all-btn button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .show-all-btn button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <a href="SNVP_homepage.html">
+                    <img src="images/SNVPlogo.png" alt="SNVP Logo">
+                </a>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="SNVP_homepage.html"><img src="images/Wallet.png" alt="Wallet Icon">Wallet</a></li>
+                    <li><a href="notice_verification.html"><img src="images/Notice Verification.png" alt="Notice Verification Icon">Notice Verification</a></li>
+                    <li><a href="notifications.html"><img src="images/Notifications.png" alt="Notifications Icon">Notifications</a></li>
+                    <li><a href="chat.html"><img src="images/Chat.png" alt="Chat Icon">Chat</a></li>
+                    <li><a href="account.html"><img src="images/Account.png" alt="Account Icon">Account</a></li>
+                    <li><a href="settings.html"><img src="images/Settings.png" alt="Settings Icon">Settings</a></li>
+                    <li><a href="logout.html"><img src="images/Logout.png" alt="Logout Icon">Logout</a></li>
+                    <li><a href="help.html"><img src="images/Help.png" alt="Help Icon">Help</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <div class="toggle-sidebar-btn" onclick="toggleSidebar()">☰</div>
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search here...">
+                </div>
+            </header>
+            <section class="wallet-section">
+                <div class="balance">
+                    <img src="images/Balance.png" alt="Balance Icon">
+                    <div>
+                        <h2>Balance</h2>
+                        <p>Linked to MasterCard 2830</p>
+                        <h3 id="balance-amount">$0.00 SGD</h3>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="top-up"><a href="top_up.html">Top Up</a></button>
+                    <button class="transfer"><a href="transfer.html">Transfer</a></button>
+                </div>
+            </section>
+            <section class="transaction-history">
+                <h2>Transaction History</h2>
+                <div id="transaction-list">
+                    <!-- Transactions will be dynamically added here -->
+                </div>
+                <div class="show-all-btn">
+                    <a href="transaction_history.html"><button>Show All</button></a>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        let balance = 0.00; // Default balance
+        let transactionList = JSON.parse(localStorage.getItem('transactions')) || []; // Retrieve transactions
+
+        function updateBalanceDisplay() {
+            // Retrieve the updated balance from localStorage
+            balance = parseFloat(localStorage.getItem('balance')) || 0.00;
+            document.getElementById("balance-amount").innerText = `$${balance.toFixed(2)} SGD`;
+        }
+
+        function updateTransactionList() {
+            const transactionListElement = document.getElementById("transaction-list");
+            transactionListElement.innerHTML = '';
+
+            // Display only the first 7 transactions
+            transactionList.slice(0, 7).forEach(transaction => {
+                const transactionElement = document.createElement("div");
+                transactionElement.classList.add("transaction");
+                transactionElement.innerHTML = `
+                    <h3>${transaction.description}</h3>
+                    <p>${transaction.date} - $${transaction.amount.toFixed(2)} SGD</p>
+                `;
+                transactionListElement.appendChild(transactionElement);
+            });
+        }
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+            document.querySelector('.main-content').classList.toggle('collapsed');
+        }
+
+        window.onload = function() {
+            updateBalanceDisplay();
+            updateTransactionList();
+        };
+    </script>
+</body>
+</html>

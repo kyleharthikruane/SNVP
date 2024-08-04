@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #1f1f1f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .header-logo {
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+        .container {
+            background: linear-gradient(to bottom, #d9f0ff, #e0ffe8);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: left;
+        }
+        .logo {
+            font-size: 32px; /* Increased font size for a bigger logo */
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .create-account-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4e42b2;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .create-account-btn:hover {
+            background-color: #563d7c;
+        }
+        .footer-text {
+            color: #999;
+            text-align: center;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-logo">
+        <img src="images/SNVPlogo.png" alt="SNVP Logo" width="100"> <!-- Increased size of the logo -->
+    </div>
+    <div class="container">
+        <form id="signup-form" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+                <label for="fullname">Full Name (As on Identification)</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="id-number">Identification Number</label>
+                <input type="text" id="id-number" name="id-number" required>
+            </div>
+            <div class="form-group">
+                <label for="id-type">Identification Type (Insert Image of Identification)</label>
+                <input type="file" id="id-type" name="id-type" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Residential/Office Address (if applicable)</label>
+                <input type="text" id="address" name="address">
+            </div>
+            <button type="submit" class="create-account-btn">Create Account</button>
+        </form>
+        <p class="footer-text">Already have an account? <a href="sign_in.html" id="signInLink">Sign in</a></p>
+    </div>
+
+    <script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            // Get form values
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const idNumber = document.getElementById('id-number').value;
+            const idType = document.getElementById('id-type').files[0]; // File input
+            const address = document.getElementById('address').value;
+
+            // Store user details in localStorage
+            const user = { fullname, email, password, idNumber, idType: idType.name, address };
+            localStorage.setItem('user', JSON.stringify(user));
+
+            // Redirect to verification page
+            window.location.href = 'sign_up_verification.html';
+        }
+    </script>
+</body>
+</html>
